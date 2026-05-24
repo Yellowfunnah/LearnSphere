@@ -2,7 +2,7 @@
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace WAPPAssignment.Account
+namespace LearnSphere.Account
 {
     public partial class Login : System.Web.UI.Page
     {

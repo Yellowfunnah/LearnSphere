@@ -1,62 +1,28 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="WAPPAssignment.Account.Login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Login.aspx.cs" Inherits="LearnSphere.Account.Login" %>
 
 <!DOCTYPE html>
-<html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Login</title>
 
-    <style>
-        body {
-            font-family: Arial;
-            background-color: #f4f4f4;
-        }
+    <link href="../CSS/style.css" rel="stylesheet" />
 
-        .login-box {
-            width: 400px;
-            margin: 100px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px gray;
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        .input-box {
-            width: 100%;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
-            margin-top: 20px;
-            background-color: #28a745;
-            border: none;
-            color: white;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background-color: #1e7e34;
-        }
-
-        .message {
-            color: red;
-            text-align: center;
-            margin-top: 10px;
-        }
-    </style>
 </head>
 
-<body>
-    <form id="form1" runat="server">
-        <div class="login-box">
+<body class="auth-page">
 
-            <h2>Login</h2>
+    <form id="form1" runat="server">
+
+        <div class="auth-card">
+
+            <h1 class="brand">LearnSphere</h1>
+
+            <h2>Welcome Back</h2>
+
+            <p class="subtitle">
+                Login to continue learning
+            </p>
 
             <asp:TextBox ID="txtEmail" runat="server"
                 CssClass="input-box"
@@ -69,20 +35,23 @@
 
             <asp:Button ID="btnLogin" runat="server"
                 Text="Login"
-                CssClass="btn"
+                CssClass="main-btn"
                 OnClick="btnLogin_Click" />
-
-            <br /><br />
-
-            Don't have an account?
-            <asp:HyperLink ID="hlRegister" runat="server"
-                NavigateUrl="~/Account/Register.aspx"
-                Text="Register here"></asp:HyperLink>
 
             <asp:Label ID="lblMessage" runat="server"
                 CssClass="message"></asp:Label>
 
+            <p class="switch-link">
+                Don't have an account?
+
+                <asp:HyperLink ID="hlRegister" runat="server"
+                    NavigateUrl="~/Account/Register.aspx"
+                    Text="Register here"></asp:HyperLink>
+            </p>
+
         </div>
+
     </form>
+
 </body>
 </html>

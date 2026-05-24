@@ -10,3 +10,243 @@
     .course-btn:hover {
         background-color: #0056b3;
     }
+
+.auth-page {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('../Images/Online learning.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 380px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(5px);
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.brand {
+    color: #2563eb;
+    margin-bottom: 10px;
+    font-size: 30px;
+}
+
+.auth-card h2 {
+    margin-bottom: 5px;
+    color: #222;
+}
+
+.subtitle {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.input-box {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 13px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+    .input-box:focus {
+        outline: none;
+        border-color: #2563eb;
+    }
+
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+.main-btn,
+.course-btn {
+    transition: 0.3s;
+}
+    .main-btn:hover {
+        background-color: #1d4ed8;
+    }
+
+.message {
+    display: block;
+    margin-top: 12px;
+    color: red;
+}
+
+.switch-link {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+    .switch-link a {
+        color: #2563eb;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+
+.dashboard-page {
+    margin: 0;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('../Images/Online learning.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard-card {
+    width: 520px;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(5px);
+    padding: 45px;
+    border-radius: 22px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+    .dashboard-card h2 {
+        color: #222;
+        font-size: 34px;
+        margin-bottom: 25px;
+    }
+
+.dashboard-info {
+    font-size: 20px;
+    margin: 18px 0;
+}
+
+.button-row {
+    margin-top: 30px;
+}
+
+.blue-btn {
+    padding: 12px 22px;
+    background-color: #2563eb;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.red-btn {
+    padding: 12px 22px;
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.main-dashboard-page {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f7fb;
+    min-height: 100vh;
+}
+
+.top-nav {
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 55px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+.nav-links a {
+    margin-left: 25px;
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+}
+
+    .nav-links a:hover {
+        color: #2563eb;
+    }
+
+.logout-link {
+    color: #dc3545 !important;
+}
+
+.dashboard-hero {
+    max-width: 1100px;
+    margin: 90px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    padding: 0 30px;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+    .hero-text h1 {
+        font-size: 46px;
+        color: #1f2937;
+        margin-bottom: 15px;
+    }
+
+    .hero-text p {
+        font-size: 18px;
+        color: #555;
+        line-height: 1.6;
+    }
+
+.hero-btn {
+    margin-top: 25px;
+    padding: 13px 28px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.hero-card {
+    width: 320px;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+    .hero-card h3 {
+        font-size: 25px;
+        color: #1f2937;
+    }
+
+.small-text {
+    font-size: 14px !important;
+    color: #777 !important;
+}

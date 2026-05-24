@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WAPPAssignment.Account
+namespace LearnSphere.Account
 {
 
 
