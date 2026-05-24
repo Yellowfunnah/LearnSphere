@@ -1,0 +1,6 @@
+Merged LearnSphere project.
+
+Main authentication work appears in the LearnSphere project.
+Second project files were merged carefully without overwriting existing files.
+Review Account/, Admin/, Student/, CSS/, and Web.config before continuing.
+Recommended next step: open solution in Visual Studio and Rebuild Solution.

@@ -1,11 +1,14 @@
 ﻿using System;
-using System.Data.SqlClient;
 using System.Configuration;
+using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace LearnSphere.Account
-{ 
+{
     public partial class Register : System.Web.UI.Page
     {
+        string connStr = ConfigurationManager.ConnectionStrings["WAPPConnectionString"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -13,55 +16,73 @@ namespace LearnSphere.Account
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            if (txtPassword.Text != txtConfirmPassword.Text)
+            string username = txtUsername.Text.Trim();
+            string email = txtEmail.Text.Trim();
+            string password = txtPassword.Text.Trim();
+            string confirmPassword = txtConfirmPassword.Text.Trim();
+            string role = ddlRole.SelectedValue;
+
+            if (username == "" || email == "" || password == "" || confirmPassword == "")
             {
-                lblMessage.Text = "Passwords do not match!";
+                lblMessage.Text = "Please fill in all fields.";
                 return;
             }
 
-            string connStr = ConfigurationManager.ConnectionStrings["WAPPConnectionString"].ConnectionString;
+            if (password != confirmPassword)
+            {
+                lblMessage.Text = "Passwords do not match.";
+                return;
+            }
+
+            if (!IsStrongPassword(password))
+            {
+                lblMessage.Text = "Weak password. Use at least 8 characters, uppercase, lowercase, number, and symbol.";
+                return;
+            }
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
                 conn.Open();
 
-                // Check if email already exists
-                string checkQuery = "SELECT COUNT(*) FROM Users WHERE Email=@Email";
+                string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username OR Email = @Email";
 
                 SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
-                checkCmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                checkCmd.Parameters.AddWithValue("@Username", username);
+                checkCmd.Parameters.AddWithValue("@Email", email);
 
-                int count = (int)checkCmd.ExecuteScalar();
+                int exists = Convert.ToInt32(checkCmd.ExecuteScalar());
 
-                if (count > 0)
+                if (exists > 0)
                 {
-                    lblMessage.Text = "Email already exists!";
+                    lblMessage.Text = "Username or email already exists.";
                     return;
                 }
 
-                // Insert user
-                string query = @"INSERT INTO Users
-                                (FullName, Email, Password, Role)
-                                VALUES
-                                (@FullName, @Email, @Password, @Role)";
+                string insertQuery = @"INSERT INTO Users
+                    (Username, Email, Password, Role, IsActive, CreatedAt)
+                    VALUES
+                    (@Username, @Email, @Password, @Role, 1, GETDATE())";
 
-                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlCommand cmd = new SqlCommand(insertQuery, conn);
 
-                cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
-                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
-                cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
-                cmd.Parameters.AddWithValue("@Role", "Student");
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Email", email);
+                cmd.Parameters.AddWithValue("@Password", password);
+                cmd.Parameters.AddWithValue("@Role", role);
 
                 cmd.ExecuteNonQuery();
 
-                lblMessage.ForeColor = System.Drawing.Color.Green;
-                lblMessage.Text = "Registration Successful!";
-
-                txtFullName.Text = "";
-                txtEmail.Text = "";
-                txtPassword.Text = "";
-                txtConfirmPassword.Text = "";
+                Response.Redirect("~/Account/Login.aspx");
             }
+        }
+
+        private bool IsStrongPassword(string password)
+        {
+            return password.Length >= 8 &&
+                   Regex.IsMatch(password, "[A-Z]") &&
+                   Regex.IsMatch(password, "[a-z]") &&
+                   Regex.IsMatch(password, "[0-9]") &&
+                   Regex.IsMatch(password, "[^a-zA-Z0-9]");
         }
     }
 }

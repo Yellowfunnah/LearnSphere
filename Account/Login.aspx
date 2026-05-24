@@ -24,14 +24,22 @@
                 Login to continue learning
             </p>
 
-            <asp:TextBox ID="txtEmail" runat="server"
+            <asp:TextBox ID="txtLogin" runat="server"
                 CssClass="input-box"
-                placeholder="Email"></asp:TextBox>
+                placeholder="Username or Email"></asp:TextBox>
 
             <asp:TextBox ID="txtPassword" runat="server"
                 CssClass="input-box"
                 TextMode="Password"
                 placeholder="Password"></asp:TextBox>
+
+            <div class="remember-box">
+
+                <asp:CheckBox ID="chkRememberMe" runat="server" />
+
+                <span>Remember Me</span>
+
+            </div>
 
             <asp:Button ID="btnLogin" runat="server"
                 Text="Login"
@@ -40,6 +48,14 @@
 
             <asp:Label ID="lblMessage" runat="server"
                 CssClass="message"></asp:Label>
+
+            <p class="switch-link">
+
+                <asp:HyperLink ID="hlForgot" runat="server"
+                    NavigateUrl="~/Account/ForgotPassword.aspx"
+                    Text="Forgot Password?"></asp:HyperLink>
+
+            </p>
 
             <p class="switch-link">
                 Don't have an account?
