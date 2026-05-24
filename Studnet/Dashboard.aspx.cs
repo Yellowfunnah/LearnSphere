@@ -11,7 +11,22 @@ namespace LearnSphere.Studnet
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserID"] == null)
+            {
+                Response.Redirect("~/Account/Login.aspx");
+            }
 
+            lblName.Text = Session["Name"].ToString();
+            lblRole.Text = Session["Role"].ToString();
+        }
+
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.Clear();
+            Session.Abandon();
+
+            Response.Redirect("~/Account/Login.aspx");
         }
     }
 }

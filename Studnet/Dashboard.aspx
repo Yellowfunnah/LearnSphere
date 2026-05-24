@@ -9,6 +9,22 @@
 <body>
     <form id="form1" runat="server">
         <div>
+            <h2>Dashboard</h2>
+
+Welcome,
+<asp:Label ID="lblName" runat="server"></asp:Label>
+
+<br /><br />
+
+Role:
+<asp:Label ID="lblRole" runat="server"></asp:Label>
+
+<br /><br />
+
+<asp:Button ID="btnLogout"
+    runat="server"
+    Text="Logout"
+    OnClick="btnLogout_Click" />
         </div>
     </form>
 </body>
