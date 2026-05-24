@@ -1,2 +1,12 @@
-﻿body {
+﻿.course-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
 }
+
+    .course-btn:hover {
+        background-color: #0056b3;
+    }

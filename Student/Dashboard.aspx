@@ -1,10 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminDashboard.aspx.cs" Inherits="LearnSphere.Admin.AdminDashboard" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Dashboard.aspx.cs" Inherits="LearnSphere.Studnet.Dashboard" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>Admin Dashboard</title>
+    <title>Student Dashboard</title>
 
     <style>
         body {
@@ -53,7 +53,7 @@
 
         <div class="dashboard-box">
 
-            <h2>Admin Dashboard</h2>
+            <h2>Student Dashboard</h2>
 
             <div class="info">
                 Welcome,
@@ -64,11 +64,12 @@
                 Role:
                 <asp:Label ID="lblRole" runat="server"></asp:Label>
             </div>
+            <br />
 
-            <asp:Button ID="btnManageCourses" runat="server"
-                Text="Manage Courses"
-                CssClass="course-btn"
-                PostBackUrl="~/Admin/AdminCourses.aspx" />
+            <asp:Button ID="btnCourses" runat="server"
+            Text="View Courses"
+            CssClass="course-btn"
+            PostBackUrl="~/Student/Courses.aspx" />
 
             <br /><br />
 

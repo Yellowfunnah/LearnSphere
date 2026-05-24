@@ -1,50 +1,55 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Data.SqlClient;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 
-namespace LearnSphere.Account
+namespace WAPPAssignment.Account
 {
     public partial class Login : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text;
-            string password = txtPassword.Text;
+            string connStr = ConfigurationManager.ConnectionStrings["WAPPConnectionString"].ConnectionString;
 
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\LearnSphereDB.mdf;Integrated Security=True";
-
-            SqlConnection con = new SqlConnection(connectionString);
-
-            string query = "SELECT UserID, Name, Role FROM Users WHERE Email=@Email AND Password=@Password";
-
-            SqlCommand cmd = new SqlCommand(query, con);
-
-            cmd.Parameters.AddWithValue("@Email", email);
-            cmd.Parameters.AddWithValue("@Password", password);
-
-            con.Open();
-
-            SqlDataReader reader = cmd.ExecuteReader();
-
-            if (reader.Read())
+            using (SqlConnection conn = new SqlConnection(connStr))
             {
-                Session["UserID"] = reader["UserID"].ToString();
-                Session["Name"] = reader["Name"].ToString();
-                Session["Role"] = reader["Role"].ToString();
+                conn.Open();
 
-                Response.Redirect("~/Student/Dashboard.aspx");
+                string query = @"SELECT UserID, FullName, Email, Role 
+                                 FROM Users 
+                                 WHERE Email=@Email AND Password=@Password";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    Session["UserID"] = reader["UserID"].ToString();
+                    Session["FullName"] = reader["FullName"].ToString();
+                    Session["Email"] = reader["Email"].ToString();
+                    Session["Role"] = reader["Role"].ToString().Trim();
+
+                    if (Session["Role"].ToString() == "Admin")
+                    {
+                        Response.Redirect("~/Admin/AdminDashboard.aspx");
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Student/Dashboard.aspx");
+                    }
+                }
+                else
+                {
+                    lblMessage.Text = "Invalid email or password.";
+                }
             }
-            else
-            {
-                lblMessage.Text = "Invalid email or password.";
-            }
-
-            con.Close();
-
         }
     }
 }

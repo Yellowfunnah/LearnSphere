@@ -1,51 +1,67 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 
-namespace LearnSphere.Account
+namespace WAPPAssignment.Account
 {
     public partial class Register : System.Web.UI.Page
     {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
         protected void btnRegister_Click(object sender, EventArgs e)
         {
-            string username = txtUsername.Text;
-            string email = txtEmail.Text;
-            string password = txtPassword.Text;
-            string role = ddlRole.SelectedValue;
-
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\LearnSphereDB.mdf;Integrated Security=True";
-
-            SqlConnection con = new SqlConnection(connectionString);
-
-            string query = "INSERT INTO Users (Name, Email, Password, Role) VALUES (@Name, @Email, @Password, @Role)";
-
-            SqlCommand cmd = new SqlCommand(query, con);
-
-            cmd.Parameters.AddWithValue("@Name", username);
-            cmd.Parameters.AddWithValue("@Email", email);
-            cmd.Parameters.AddWithValue("@Password", password);
-            cmd.Parameters.AddWithValue("@Role", role);
-
-            try
+            if (txtPassword.Text != txtConfirmPassword.Text)
             {
-                con.Open();
+                lblMessage.Text = "Passwords do not match!";
+                return;
+            }
+
+            string connStr = ConfigurationManager.ConnectionStrings["WAPPConnectionString"].ConnectionString;
+
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                conn.Open();
+
+                // Check if email already exists
+                string checkQuery = "SELECT COUNT(*) FROM Users WHERE Email=@Email";
+
+                SqlCommand checkCmd = new SqlCommand(checkQuery, conn);
+                checkCmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+
+                int count = (int)checkCmd.ExecuteScalar();
+
+                if (count > 0)
+                {
+                    lblMessage.Text = "Email already exists!";
+                    return;
+                }
+
+                // Insert user
+                string query = @"INSERT INTO Users
+                                (FullName, Email, Password, Role)
+                                VALUES
+                                (@FullName, @Email, @Password, @Role)";
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                cmd.Parameters.AddWithValue("@FullName", txtFullName.Text);
+                cmd.Parameters.AddWithValue("@Email", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@Password", txtPassword.Text);
+                cmd.Parameters.AddWithValue("@Role", "Student");
+
                 cmd.ExecuteNonQuery();
 
-                lblMessage.Text = "Registration successful!";
-            }
-            catch (System.Exception ex)
-            {
-                lblMessage.Text = ex.ToString();
-            }
-            finally
-            {
-                con.Close();
-            }
+                lblMessage.ForeColor = System.Drawing.Color.Green;
+                lblMessage.Text = "Registration Successful!";
 
+                txtFullName.Text = "";
+                txtEmail.Text = "";
+                txtPassword.Text = "";
+                txtConfirmPassword.Text = "";
+            }
         }
     }
 }
